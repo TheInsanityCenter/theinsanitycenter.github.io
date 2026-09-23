@@ -1,7 +1,7 @@
-/* Gallery: Three.js exhibit wall for the brand plates.
+/* Gallery: Three.js exhibit carousel for the brand plates.
    Progressive enhancement - the semantic <img> grid ships in the HTML and is
    replaced by the canvas only when WebGL + motion are allowed and the user
-   actually scrolls here. Lazy: three.js is imported on first visibility. */
+   actually scrolls here. Three.js is self-hosted (no CDN dependency). */
 
 const stage = document.getElementById("gallery-stage");
 const fallback = document.getElementById("gallery-fallback");
@@ -14,7 +14,7 @@ if (stage && fallback && !reduced && "IntersectionObserver" in window) {
       if (entries.some((e) => e.isIntersecting)) {
         io.disconnect();
         boot().catch(() => {
-          /* CDN or WebGL failed: keep the image grid */
+          /* WebGL or module load failed: keep the image grid */
         });
       }
     },
@@ -24,9 +24,7 @@ if (stage && fallback && !reduced && "IntersectionObserver" in window) {
 }
 
 async function boot() {
-  const THREE = await import(
-    "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"
-  );
+  const THREE = await import("./vendor/three.module.min.js");
 
   // WebGL support check before tearing out the grid
   const probe = document.createElement("canvas");
@@ -48,13 +46,13 @@ async function boot() {
   canvas.setAttribute("role", "img");
   canvas.setAttribute(
     "aria-label",
-    "Interactive gallery of The Insanity Center brand artwork. Drag to browse."
+    "Interactive gallery of The Insanity Center brand artwork. Drag to spin."
   );
   stage.appendChild(canvas);
 
   const hint = document.createElement("p");
   hint.className = "stage-hint";
-  hint.textContent = "Drag to browse";
+  hint.textContent = "Drag to spin";
   stage.appendChild(hint);
 
   const renderer = new THREE.WebGLRenderer({
@@ -65,30 +63,35 @@ async function boot() {
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
 
   const scene = new THREE.Scene();
+  scene.fog = new THREE.Fog(0x070b08, 16, 42);
   const camera = new THREE.PerspectiveCamera(38, 2, 0.1, 100);
-  camera.position.set(0, 0, 11);
+  camera.position.set(0, 2.4, 19);
+  camera.lookAt(0, -0.4, 0);
 
-  scene.add(new THREE.AmbientLight(0xfff2d8, 1.1));
-  const key = new THREE.DirectionalLight(0xe6cd8f, 1.4);
-  key.position.set(4, 6, 8);
+  scene.add(new THREE.AmbientLight(0xfff2d8, 1.5));
+  const key = new THREE.DirectionalLight(0xe6cd8f, 1.6);
+  key.position.set(5, 7, 9);
   scene.add(key);
-  const rim = new THREE.DirectionalLight(0x2e5a3e, 1.2);
-  rim.position.set(-6, -2, -4);
+  const fill = new THREE.PointLight(0xe6cd8f, 40, 0, 2);
+  fill.position.set(0, 3, 16);
+  scene.add(fill);
+  const rim = new THREE.DirectionalLight(0x356646, 1.2);
+  rim.position.set(-7, -2, -5);
   scene.add(rim);
 
-  // Each plate: gold back panel slightly larger than the photo plane
   const group = new THREE.Group();
   scene.add(group);
 
   const loader = new THREE.TextureLoader();
   const COUNT = sources.length;
-  const ARC = Math.PI * 1.35;
-  const RADIUS = 13;
+  const RADIUS = 8.6;
+  const STEP = (Math.PI * 2) / COUNT;
 
   const plates = sources.map((src, i) => {
-    const angle = -ARC / 2 + (ARC / (COUNT - 1)) * i;
+    const angle = STEP * i;
     const plate = new THREE.Group();
 
+    // gold frame: back panel slightly larger than the photo plane
     const back = new THREE.Mesh(
       new THREE.PlaneGeometry(2.3, 2.3),
       new THREE.MeshStandardMaterial({
@@ -97,7 +100,7 @@ async function boot() {
         roughness: 0.35,
       })
     );
-    back.position.z = -0.04;
+    back.position.z = -0.045;
     plate.add(back);
 
     const frontMat = new THREE.MeshStandardMaterial({
@@ -115,10 +118,11 @@ async function boot() {
         frontMat.map = tex;
         frontMat.color.set(0xffffff);
         frontMat.needsUpdate = true;
-        const aspect = tex.image.width / tex.image.height || 1;
+        const aspect = (tex.image.width / tex.image.height) || 1;
+        // fit inside the 2.15 square, never squish: shrink the long side
         if (aspect >= 1) {
           front.scale.y = 1 / aspect;
-          back.scale.y = (2.3 / 2.15) * (1 / aspect);
+          back.scale.y = (2.3 / 2.15) / aspect;
         } else {
           front.scale.x = aspect;
           back.scale.x = (2.3 / 2.15) * aspect;
@@ -132,20 +136,24 @@ async function boot() {
 
     plate.position.set(
       Math.sin(angle) * RADIUS,
-      (i % 2 === 0 ? 0.18 : -0.18),
-      -Math.cos(angle) * RADIUS
+      i % 2 === 0 ? 0.22 : -0.22,
+      Math.cos(angle) * RADIUS
     );
-    plate.lookAt(0, 0, 0);
+    // face outward so the camera always sees plate fronts
+    plate.lookAt(
+      Math.sin(angle) * RADIUS * 2,
+      plate.position.y,
+      Math.cos(angle) * RADIUS * 2
+    );
     group.add(plate);
     return plate;
   });
 
-  /* ---- drag to orbit, with inertia; no wheel hijack ---- */
+  /* ---- drag to spin, with inertia; no wheel hijack ---- */
   let dragging = false;
   let lastX = 0;
   let velocity = 0;
   let rotY = 0;
-  const MAX_Y = 0.62; // radians of travel each way
 
   function pointerX(e) {
     return e.touches ? e.touches[0].clientX : e.clientX;
@@ -161,9 +169,8 @@ async function boot() {
     const x = pointerX(e);
     const dx = x - lastX;
     lastX = x;
-    rotY += dx * 0.0032;
-    velocity = dx * 0.0032;
-    rotY = Math.max(-MAX_Y, Math.min(MAX_Y, rotY));
+    rotY += dx * 0.0035;
+    velocity = dx * 0.0035;
   });
   function release() {
     dragging = false;
@@ -174,7 +181,7 @@ async function boot() {
   /* ---- size to stage ---- */
   function resize() {
     const w = stage.clientWidth;
-    const h = Math.max(480, Math.min(640, Math.round(w * 0.56)));
+    const h = Math.max(480, Math.min(620, Math.round(w * 0.55)));
     stage.style.height = h + "px";
     renderer.setSize(w, h, false);
     camera.aspect = w / h;
@@ -183,7 +190,7 @@ async function boot() {
   new ResizeObserver(resize).observe(stage);
   resize();
 
-  /* ---- render loop: idle drift + inertia, paused off-screen ---- */
+  /* ---- render loop: idle spin + inertia, paused off-screen ---- */
   let visible = true;
   const vio = new IntersectionObserver(
     (entries) => {
@@ -196,19 +203,17 @@ async function boot() {
   const clock = new THREE.Clock();
   renderer.setAnimationLoop(() => {
     if (!visible) return;
-    const t = clock.getElapsedTime();
+    const dt = Math.min(clock.getDelta(), 0.05);
     if (!dragging) {
       rotY += velocity;
       velocity *= 0.94;
-      if (Math.abs(velocity) < 0.0004) {
-        // gentle idle sway around center
-        rotY += (Math.sin(t * 0.22) * 0.24 - rotY) * 0.008;
-      }
-      rotY = Math.max(-MAX_Y, Math.min(MAX_Y, rotY));
+      // slow perpetual spin once flicks settle
+      if (Math.abs(velocity) < 0.0004) rotY += 0.05 * dt;
     }
     group.rotation.y = rotY;
+    const t = clock.elapsedTime;
     plates.forEach((p, i) => {
-      p.position.y += Math.sin(t * 0.9 + i * 1.7) * 0.0006;
+      p.position.y = (i % 2 === 0 ? 0.22 : -0.22) + Math.sin(t * 0.8 + i * 1.7) * 0.06;
     });
     renderer.render(scene, camera);
   });

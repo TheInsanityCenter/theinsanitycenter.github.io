@@ -37,7 +37,7 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-img { max-width: 100%; display: block; }
+img { max-width: 100%; height: auto; display: block; }
 a { color: var(--gold); text-decoration-color: var(--gold-soft); text-underline-offset: 3px; }
 a:hover { color: var(--gold-bright); }
 
@@ -263,10 +263,10 @@ em { font-style: italic; }
 .footer .seal { width: 84px; border-radius: 50%; margin-bottom: 1rem; border: 1px solid var(--green-line); }
 .footer-legal { margin-top: 1.2rem; max-width: 75ch; }
 
-/* ---------- reveal ---------- */
+/* ---------- reveal (JS-gated: without JS everything is visible) ---------- */
 @media (prefers-reduced-motion: no-preference) {
-  .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.7s ease, transform 0.7s ease; }
-  .reveal.in { opacity: 1; transform: none; }
+  .js .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .js .reveal.in { opacity: 1; transform: none; }
 }
 
 /* focus */
