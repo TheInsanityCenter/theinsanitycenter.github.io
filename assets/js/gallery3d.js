@@ -79,6 +79,31 @@ async function boot() {
   rim.position.set(-7, -2, -5);
   scene.add(rim);
 
+  const floor = new THREE.Mesh(
+    new THREE.CircleGeometry(11.5, 80),
+    new THREE.MeshStandardMaterial({
+      color: 0x070b08,
+      metalness: 0.72,
+      roughness: 0.38,
+    })
+  );
+  floor.rotation.x = -Math.PI / 2;
+  floor.position.y = -1.55;
+  scene.add(floor);
+
+  const ring = new THREE.Mesh(
+    new THREE.RingGeometry(7.4, 9.6, 96),
+    new THREE.MeshBasicMaterial({
+      color: 0xc9a45c,
+      transparent: true,
+      opacity: 0.22,
+      side: THREE.DoubleSide,
+    })
+  );
+  ring.rotation.x = -Math.PI / 2;
+  ring.position.y = -1.52;
+  scene.add(ring);
+
   const group = new THREE.Group();
   scene.add(group);
 
