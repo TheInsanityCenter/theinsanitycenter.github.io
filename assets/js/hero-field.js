@@ -35,7 +35,8 @@ function boot(canvas) {
     uniform vec2 uRes;
     uniform float uTime;
     uniform vec2 uPointer;
-    uniform float uWide;
+    uniform vec2 uCenter;
+    uniform float uScale;
     out vec4 frag;
 
     float hash(vec2 p) {
@@ -85,19 +86,17 @@ function boot(canvas) {
       vec3 col = mix(ink, forest, smoothstep(0.28, 0.82, n));
       col += gold * 0.07 * smoothstep(0.58, 0.86, vein);
 
-      vec2 center = mix(vec2(0.50, 0.58), vec2(0.58, 0.46), uWide);
-      vec2 q = (uv - center) * aspect;
-      q -= (uPointer - 0.5) * 0.04;
-      float scale = mix(0.42, 0.50, uWide);
-      float d = keyhole(q / scale);
-      float glow = exp(-max(d, 0.0) * 4.2);
-      float hole = smoothstep(0.015, -0.05, d);
-      col += gold * glow * (0.85 + 0.12 * sin(uTime * 0.7));
-      col = mix(col, hot, hole * 0.92);
-      col += gold * hole * 0.45;
+      vec2 q = (uv - uCenter) * aspect;
+      q -= (uPointer - 0.5) * 0.03;
+      float d = keyhole(q / uScale);
+      float glow = exp(-max(d, 0.0) * 5.0);
+      float hole = smoothstep(0.02, -0.06, d);
+      col += gold * glow * (1.05 + 0.12 * sin(uTime * 0.7));
+      col = mix(col, hot, hole * 0.95);
+      col += gold * hole * 0.55;
 
-      float arch = abs(length(q / scale - vec2(0.0, 0.06)) - 0.48);
-      col += gold * exp(-arch * 22.0) * 0.9;
+      float arch = abs(length(q / uScale - vec2(0.0, 0.06)) - 0.46);
+      col += gold * exp(-arch * 26.0) * 1.05;
 
       vec2 cell = floor(gl_FragCoord.xy / 36.0);
       vec2 gv = fract(gl_FragCoord.xy / 36.0) - 0.5;
@@ -106,11 +105,8 @@ function boot(canvas) {
       mote *= 0.55 + 0.45 * sin(uTime * 1.8 + spark * 40.0);
       col += gold * mote;
 
-      float vig = smoothstep(1.2, 0.28, length((uv - 0.5) * vec2(1.2, 0.95)));
-      col *= mix(0.55, 1.0, vig);
-
-      float scrim = smoothstep(mix(0.55, 0.42, uWide), 0.05, uv.x);
-      col = mix(col, ink, scrim * 0.62);
+      float vig = smoothstep(1.25, 0.25, length((uv - 0.5) * vec2(1.15, 0.9)));
+      col *= mix(0.62, 1.0, vig);
 
       float grain = hash(gl_FragCoord.xy + fract(uTime) * 80.0) - 0.5;
       col += grain * 0.03;
@@ -143,16 +139,46 @@ function boot(canvas) {
   const uRes = gl.getUniformLocation(prog, "uRes");
   const uTime = gl.getUniformLocation(prog, "uTime");
   const uPointer = gl.getUniformLocation(prog, "uPointer");
-  const uWide = gl.getUniformLocation(prog, "uWide");
+  const uCenter = gl.getUniformLocation(prog, "uCenter");
+  const uScale = gl.getUniformLocation(prog, "uScale");
 
   const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const pointer = { x: 0.5, y: 0.5 };
   const hero = canvas.parentElement;
+  const place = { x: 0.28, y: 0.55, scale: 0.28 };
   let raf = 0;
   let running = true;
 
+  function layout() {
+    const canvasRect = canvas.getBoundingClientRect();
+    const art = hero.querySelector(".hero-art");
+    const wide = window.innerWidth > 860;
+    if (!art || canvasRect.width < 2 || canvasRect.height < 2) return;
+
+    const artRect = art.getBoundingClientRect();
+    let scale = wide ? 0.32 : 0.26;
+    const archRadiusPx = () => 0.48 * scale * canvasRect.height;
+
+    if (wide) {
+      const room = artRect.left - canvasRect.left - 36;
+      if (archRadiusPx() > room) scale = Math.max(0.18, room / (0.48 * canvasRect.height));
+      const radius = archRadiusPx();
+      const cx = artRect.left - 28 - radius;
+      place.x = (cx - canvasRect.left) / canvasRect.width;
+      const cy = artRect.top + artRect.height * 0.46;
+      place.y = 1 - (cy - canvasRect.top) / canvasRect.height;
+    } else {
+      const cy = artRect.bottom + 36;
+      place.x = 0.5;
+      place.y = 1 - (cy - canvasRect.top) / canvasRect.height;
+    }
+    place.x = Math.min(0.92, Math.max(0.08, place.x));
+    place.y = Math.min(0.86, Math.max(0.14, place.y));
+    place.scale = scale;
+  }
+
   function resize() {
-    const rect = hero.getBoundingClientRect();
+    const rect = canvas.getBoundingClientRect();
     const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
     const w = Math.max(2, Math.round(rect.width * dpr));
     const h = Math.max(2, Math.round(rect.height * dpr));
@@ -161,6 +187,7 @@ function boot(canvas) {
       canvas.height = h;
     }
     gl.viewport(0, 0, canvas.width, canvas.height);
+    layout();
   }
 
   function frame(now) {
@@ -169,13 +196,14 @@ function boot(canvas) {
     gl.uniform2f(uRes, canvas.width, canvas.height);
     gl.uniform1f(uTime, reduced ? 1.2 : now * 0.001);
     gl.uniform2f(uPointer, pointer.x, pointer.y);
-    gl.uniform1f(uWide, hero.getBoundingClientRect().width > 860 ? 1 : 0);
+    gl.uniform2f(uCenter, place.x, place.y);
+    gl.uniform1f(uScale, place.scale);
     gl.drawArrays(gl.TRIANGLES, 0, 3);
     if (!reduced) raf = requestAnimationFrame(frame);
   }
 
   hero.addEventListener("pointermove", (e) => {
-    const rect = hero.getBoundingClientRect();
+    const rect = canvas.getBoundingClientRect();
     pointer.x = (e.clientX - rect.left) / rect.width;
     pointer.y = 1 - (e.clientY - rect.top) / rect.height;
   });
