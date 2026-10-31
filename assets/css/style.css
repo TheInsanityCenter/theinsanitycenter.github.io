@@ -14,7 +14,7 @@
   --gold-bright: #e6cd8f;
   --ink: #ece7da;
   --ink-muted: #a9a493;
-  --ink-faint: #6f6d60;
+  --ink-faint: #9c9788;
   --radius-card: 14px;
   --radius-media: 10px;
   --shadow-tint: rgba(0, 0, 0, 0.45);
@@ -147,7 +147,7 @@ em { font-style: italic; }
 .btn-line:hover { border-color: var(--gold); background: rgba(201, 164, 92, 0.08); }
 @media (max-width: 860px) {
   .hero { grid-template-columns: 1fr; padding-top: 2rem; }
-  .hero-art { order: -1; width: min(78%, 340px); }
+  .hero-art { order: -1; width: min(78%, 340px); margin-bottom: 8rem; }
 }
 
 /* ---------- split features ---------- */

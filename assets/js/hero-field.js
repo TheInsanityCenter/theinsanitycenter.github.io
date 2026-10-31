@@ -168,7 +168,14 @@ function boot(canvas) {
       const cy = artRect.top + artRect.height * 0.46;
       place.y = 1 - (cy - canvasRect.top) / canvasRect.height;
     } else {
-      const cy = artRect.bottom + 36;
+      scale = 0.18;
+      const gap = parseFloat(getComputedStyle(art).marginBottom) || 0;
+      let radius = archRadiusPx();
+      if (gap > 0 && radius * 2.15 > gap) {
+        scale = Math.max(0.12, (gap * 0.82) / (2 * 0.48 * canvasRect.height));
+        radius = archRadiusPx();
+      }
+      const cy = artRect.bottom + (gap > 0 ? gap * 0.48 : radius * 0.85);
       place.x = 0.5;
       place.y = 1 - (cy - canvasRect.top) / canvasRect.height;
     }
