@@ -14,3 +14,7 @@
   Fantasy). Prices/categories are the client's published guide, reproduced exactly.
   Framing copy for these NEW sections was written fresh in her voice - do not retrofit
   the older sections to match, and do not "polish" the new ones either.
+- Nov 2026 typo pass: the owner asked for typos and loose ends to be fixed
+  (privet->private, suitations->situations, dose->does, thel->the, aquired->acquired,
+  though->through, then->than) plus one bridge line in the Support section explaining
+  the $0.10 dime vs the $1 button floor. Everything else in her copy remains verbatim.
