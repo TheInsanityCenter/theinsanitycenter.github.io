@@ -24,7 +24,7 @@
 }
 
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; scroll-padding-top: 82px; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 
 body {
@@ -95,7 +95,7 @@ em { font-style: italic; }
   display: none; background: none; border: 1px solid var(--green-line); border-radius: 8px;
   color: var(--ink); font-size: 1.1rem; padding: 0.3rem 0.65rem; cursor: pointer;
 }
-@media (max-width: 920px) {
+@media (max-width: 1180px) {
   .nav-toggle { display: block; }
   .nav-links {
     display: none; position: absolute; top: 66px; left: 0; right: 0;
@@ -263,13 +263,18 @@ em { font-style: italic; }
 @media (max-width: 720px) { .connect-grid { grid-template-columns: 1fr; } }
 
 /* ---------- price guide ---------- */
-.age-legend { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 1.6rem 0 0; }
+.age-legend { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem; margin: 1.6rem 0 0; }
+.age-key { font-size: 0.78rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-faint); }
 .age-chip {
   display: inline-block; font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase;
   color: var(--gold); border: 1px solid var(--gold-soft); border-radius: 999px;
-  padding: 0.22rem 0.75rem; margin: 0.15rem 0.35rem 0.9rem 0; white-space: nowrap;
+  padding: 0.22rem 0.75rem; line-height: 1.5;
 }
+.age-legend .age-chip { white-space: nowrap; }
+.price-block .age-chip { margin: 0.15rem 0.35rem 0.45rem 0; }
 .price-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.4rem; margin-top: 2rem; align-items: start; }
+.price-block:last-child { grid-column: 1 / -1; }
+.price-block:last-child .price-list { max-width: 42rem; }
 .price-block {
   background: var(--bg-2); border: 1px solid var(--green-line); border-radius: var(--radius-card);
   padding: 1.7rem 1.6rem 1.4rem; position: relative; overflow: hidden;
@@ -283,9 +288,10 @@ em { font-style: italic; }
 .price-list { list-style: none; margin: 0.4rem 0 0; padding: 0; font-size: 0.94rem; }
 .price-list li {
   display: flex; justify-content: space-between; align-items: baseline; gap: 1rem;
-  padding: 0.42rem 0; margin: 0; border-bottom: 1px dashed var(--green-line);
+  padding: 0.42rem 0; margin: 0; border-bottom: 1px solid rgba(201, 164, 92, 0.14);
 }
 .price-list li:last-child { border-bottom: 0; }
+.price-list li span:first-child { min-width: 0; flex: 1; }
 .price-list .p { color: var(--gold-bright); white-space: nowrap; text-align: right; font-variant-numeric: tabular-nums; }
 .price-note { font-size: 0.85rem; color: var(--ink-faint); margin: 0.8rem 0 0; }
 @media (max-width: 860px) { .price-grid { grid-template-columns: 1fr; } }
