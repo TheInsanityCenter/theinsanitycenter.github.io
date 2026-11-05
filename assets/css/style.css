@@ -262,6 +262,34 @@ em { font-style: italic; }
 .connect-card .sub { color: var(--ink-muted); font-size: 0.95rem; }
 @media (max-width: 720px) { .connect-grid { grid-template-columns: 1fr; } }
 
+/* ---------- price guide ---------- */
+.age-legend { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 1.6rem 0 0; }
+.age-chip {
+  display: inline-block; font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--gold); border: 1px solid var(--gold-soft); border-radius: 999px;
+  padding: 0.22rem 0.75rem; margin: 0.15rem 0.35rem 0.9rem 0; white-space: nowrap;
+}
+.price-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.4rem; margin-top: 2rem; align-items: start; }
+.price-block {
+  background: var(--bg-2); border: 1px solid var(--green-line); border-radius: var(--radius-card);
+  padding: 1.7rem 1.6rem 1.4rem; position: relative; overflow: hidden;
+}
+.price-block::before {
+  content: ""; position: absolute; inset: 0 0 auto 0; height: 3px;
+  background: linear-gradient(90deg, var(--gold), transparent);
+}
+.price-block h3 { margin-top: 0.2rem; }
+.price-block .tag { font-size: 0.8rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-faint); }
+.price-list { list-style: none; margin: 0.4rem 0 0; padding: 0; font-size: 0.94rem; }
+.price-list li {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 1rem;
+  padding: 0.42rem 0; margin: 0; border-bottom: 1px dashed var(--green-line);
+}
+.price-list li:last-child { border-bottom: 0; }
+.price-list .p { color: var(--gold-bright); white-space: nowrap; text-align: right; font-variant-numeric: tabular-nums; }
+.price-note { font-size: 0.85rem; color: var(--ink-faint); margin: 0.8rem 0 0; }
+@media (max-width: 860px) { .price-grid { grid-template-columns: 1fr; } }
+
 /* ---------- footer ---------- */
 .footer { border-top: 1px solid var(--green-line); padding: 3rem 0 3.5rem; color: var(--ink-faint); font-size: 0.9rem; }
 .footer .seal { width: 84px; border-radius: 50%; margin-bottom: 1rem; border: 1px solid var(--green-line); }

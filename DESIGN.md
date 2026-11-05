@@ -9,3 +9,8 @@
 - Copy: ALL body text is the client's own writing, reproduced VERBATIM at her explicit
   request (same text, same photos). Do not "fix" her voice, grammar, or cadence.
   Aphoristic-cadence findings on body copy are accepted by design.
+- Nov 2026 addition: #pricing section (Official Service & Appointment Price Guide,
+  9 categories with age chips, Booking & Deposits, Ages & Access Policy, Bring Us Your
+  Fantasy). Prices/categories are the client's published guide, reproduced exactly.
+  Framing copy for these NEW sections was written fresh in her voice - do not retrofit
+  the older sections to match, and do not "polish" the new ones either.
