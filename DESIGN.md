@@ -1,50 +1,50 @@
 # The Insanity Center - design system
 
-- Theme: dark only. Off-black base (#070b08), forest-green surfaces (#1e3d2b family), single gold accent (#c9a45c).
-- Type: Cormorant Garamond (display serif - luxury private-club brief), Outfit (body/UI).
-- Radius: cards 14px, media 10px, buttons pill.
-- Hero field: raw WebGL2 keyhole light (assets/js/hero-field.js). Gallery keeps the
-  Three.js carousel and adds a dark metal floor plus a gold ring. Both stop or freeze
-  under prefers-reduced-motion. No copy change.
-- Copy: ALL body text is the client's own writing, reproduced VERBATIM at her explicit
-  request (same text, same photos). Do not "fix" her voice, grammar, or cadence.
-  Aphoristic-cadence findings on body copy are accepted by design.
-- Nov 2026 addition: #pricing section (Official Service & Appointment Price Guide,
-  9 categories with age chips, Booking & Deposits, Ages & Access Policy, Bring Us Your
-  Fantasy). Prices/categories are the client's published guide, reproduced exactly.
-  Framing copy for these NEW sections was written fresh in her voice - do not retrofit
-  the older sections to match, and do not "polish" the new ones either.
-- Nov 2026 typo pass: the owner asked for typos and loose ends to be fixed
+- Theme: dark only. Near-black base (#08090a), deep green surfaces (#0e1110 / #141a16),
+  one gold accent (#c9a45c, soft #8a7444, bright #e6cd8f), warm ink text (#ede6d6).
+- Type: Cormorant Garamond (display serif), Outfit (body/UI). Self-hosted woff2.
+- Feel: black and gold, keyhole, candlelight, one Victorian border. Calm and skimmable.
+- Copy: ALL body text is Joy's own writing, moved, not rewritten. Do not "fix" her voice,
+  grammar, or cadence. Anything new that is not hers carries a visible
+  `<span class="draft">[Draft — Joy to approve]</span>` badge until she approves it.
+  Never invent dates or prices: write "details coming soon" (`.soon`).
+- Older passes (kept): Nov 2026 price guide added verbatim; Nov 2026 typo pass
   (privet->private, suitations->situations, dose->does, thel->the, aquired->acquired,
-  though->through, then->than) plus one bridge line in the Support section explaining
-  the $0.10 dime vs the $1 button floor. Everything else in her copy remains verbatim.
+  though->through, then->than).
 
-## 2026-11 revamp
+## Phase 1 (2026-11-18)
 
-- Page structure: the old single page is split into three, nothing deleted, only moved.
-  `index.html` is the family home (Welcome, `#building`, `#fantasy`, `#family`, `#prices`,
-  `#help` with `#dime`). `private/index.html` is the Private Sector 21+ gate page and
-  `private/sector.html` holds all adult / private content. Both private pages are `noindex`
-  and stay out of `sitemap.xml`; `sector.html` is guarded by `assets/js/gate-check.js`
-  (sessionStorage flag set by `gate.js`).
-- New components:
-  - `.frame` - gold double-rule Victorian frame around feature blocks.
-  - `.ornament` - keyhole divider between sections.
-  - `.btn-big` - 56px-tall phone-friendly buttons for the main actions.
-  - `.wonder-list` - the short word list in What Fantasy Means To Me.
-  - Gate card - the centred 21+ confirmation card on `private/index.html`.
-  - Donate + wayfinding (2026-11): one motif, the keyhole dime coin (`assets/img/dime-coin.svg`).
-    - `.nav-dime` - gold "Drop a Dime" pill in every page header, visible down to 360px.
-    - `.hero-dime` - secondary dime link under the home hero doors.
-    - `.start-row` - "Start here" row of five big links under the home hero.
-    - `.jump-row` - category jump links above the price guide.
-    - `.dime-band` - the same donation band before the footer on all four pages.
-    - `.footer-nav` - the same footer links on all four pages.
-    - The menu marks the section in view with `aria-current="location"` (main.js).
-- Rules:
-  - The family page shows no previews, images, or excerpts of Private Sector content.
-  - Private Sector links on the family page are plain text only (no images or excerpts): top nav,
-    hero door, Start here row, and footer.
-  - Every donate link uses the same Givebutter URL, `rel="noopener noreferrer"`, same tab.
-  - Home hero image is `assets/img/home-keyhole.webp` (photo-01 with the "21+" line covered).
-  - Copy is Joy's verbatim wording.
+- Pages (family side, all in `sitemap.xml`):
+  - `index.html` - welcome, "Phase 1 — Building Now!", What Fantasy Means To Me (front and
+    center, with the Bring Us Your Fantasy form), Phase 1 summary, mascot welcome, Start here.
+  - `building.html` - What I'm Building, Phase 1 front door comic, Community Compound,
+    the look of the place, creative help (dreaming / taking new customers).
+  - `mascots.html` - the Unicorn Goblin, the Unsolicited Duck (Sir Quacks-A-Lot),
+    Future Trademark Mascots note. Mascots are family-only, never in the Private Sector.
+  - `events.html` - Penny Rally, Mother's Day Penny Picnic poster, Saturday baskets,
+    volunteer sign-up, Let's Play a Game.
+  - `crafts.html` - Gremlin Crafts, the craft room, stickers and snap bracelets.
+  - `family.html` - Family Area plus the full price guide (`#prices`).
+  - `help.html` - help / volunteer / vendors, contact cards, Every dime counts, pirate ship.
+- Private side: `private/index.html` gate ("Private Sector — Adults Only 21+. Not part of
+  the family experience.") and `private/sector.html`. Both `noindex, nofollow`, out of the
+  sitemap, not disallowed in robots. `sector.html` is guarded by `gate-check.js`
+  (sessionStorage flag set by `gate.js`). Adult images and the adult posters live only here.
+- Family pages link to the private side once: the small footer link. No adult words,
+  images, alt text or social cards on family pages.
+- Build: page bodies are hand-written; header, footer and head are shared. Restamp SRI and
+  `?v=` after any CSS/JS edit: `openssl dgst -sha384 -binary FILE | base64`.
+- Components (`assets/css/style.css`):
+  - `.frame` - the one ornament: gold double rule, used for What Fantasy Means To Me and the gate.
+  - `.pic` / `.pics` / `.split` - figures. Every picture is a plain link to its full-size file
+    (tap to enlarge, no JS).
+  - `.phase` - the Phase 1 badge. `.draft` - draft badge. `.soon` - details coming soon.
+  - `.mascot` - bio card (Look / Personality / Where it appears). `.note` - side note box.
+  - `.page-list` - home "Start here" links. `.connect-grid` - contact cards.
+  - `.nav-dime` - the gold "Drop a Dime" pill, once per page in the header.
+  - `.gallery-grid` - private gallery, plain grid (the old Three.js wall and WebGL hero
+    field were removed; `hero-field.js`, `gallery3d.js` and the Three.js vendor file are gone).
+  - `.egg` - pirate-ship GIF on the help page, links to Buccaneer Salvage.
+- Rules: one column on phones, 44px targets, visible focus, no animations
+  (smooth scroll only when motion is allowed), CSP `'self'` with no inline style or script,
+  SHA-384 SRI on every local CSS/JS, html-validate 0 errors.
