@@ -147,7 +147,7 @@ em { font-style: italic; }
 .btn-line:hover { border-color: var(--gold); background: rgba(201, 164, 92, 0.08); }
 @media (max-width: 860px) {
   .hero { grid-template-columns: 1fr; padding-top: 2rem; }
-  .hero-art { order: -1; width: min(78%, 340px); margin-bottom: 8rem; }
+  .hero-art { order: -1; width: min(78%, 340px); margin-bottom: 1.5rem; }
 }
 
 /* ---------- split features ---------- */
@@ -488,7 +488,7 @@ figure.frame { margin: 0; }
 @media (max-width: 860px) {
   .section { padding: clamp(4.5rem, 14vw, 5.5rem) 0; }
   p { max-width: 60ch; }
-  .hero-art.frame { order: -1; width: min(82%, 340px); margin: 0 auto 6rem; }
+  .hero-art.frame { order: -1; width: min(82%, 340px); margin: 0 auto 1.5rem; }
 }
 .statement + p { margin-top: 1.2rem; }
 @media (max-width: 860px) {

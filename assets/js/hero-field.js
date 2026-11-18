@@ -1,6 +1,5 @@
 /* Hero atmosphere: one raw WebGL2 triangle, no library.
-   A gold keyhole breathes in a dark forest field. The left side stays
-   dark so the title stays readable. Reduced motion draws a single frame. */
+   A gold light breathes behind the emblem in a dark forest field. Reduced motion draws a single frame. */
 
 const canvas = document.getElementById("hero-field");
 if (canvas) boot(canvas);
@@ -96,7 +95,7 @@ function boot(canvas) {
       col += gold * hole * 0.55;
 
       float arch = abs(length(q / uScale - vec2(0.0, 0.06)) - 0.46);
-      col += gold * exp(-arch * 26.0) * 1.05;
+      col += gold * exp(-arch * 26.0) * 0.55;
 
       vec2 cell = floor(gl_FragCoord.xy / 36.0);
       vec2 gv = fract(gl_FragCoord.xy / 36.0) - 0.5;
@@ -153,36 +152,13 @@ function boot(canvas) {
     const canvasRect = canvas.getBoundingClientRect();
     const art = hero.querySelector(".hero-art");
     if (!art || canvasRect.width < 2 || canvasRect.height < 2) return;
-    // When the art reserves a gap below itself, the light sits in that gap (clear of the copy).
-    const artGap = parseFloat(getComputedStyle(art).marginBottom) || 0;
-    const wide = window.innerWidth > 860 && artGap === 0;
-
-    const artRect = art.getBoundingClientRect();
-    let scale = wide ? 0.32 : 0.26;
-    const archRadiusPx = () => 0.48 * scale * canvasRect.height;
-
-    if (wide) {
-      const room = artRect.left - canvasRect.left - 36;
-      if (archRadiusPx() > room) scale = Math.max(0.18, room / (0.48 * canvasRect.height));
-      const radius = archRadiusPx();
-      const cx = artRect.left - 28 - radius;
-      place.x = (cx - canvasRect.left) / canvasRect.width;
-      const cy = artRect.top + artRect.height * 0.46;
-      place.y = 1 - (cy - canvasRect.top) / canvasRect.height;
-    } else {
-      scale = 0.18;
-      const gap = parseFloat(getComputedStyle(art).marginBottom) || 0;
-      let radius = archRadiusPx();
-      if (gap > 0 && radius * 2.15 > gap) {
-        scale = Math.max(0.12, (gap * 0.82) / (2 * 0.48 * canvasRect.height));
-        radius = archRadiusPx();
-      }
-      const cy = artRect.bottom + (gap > 0 ? gap * 0.48 : radius * 0.85);
-      place.x = (artRect.left + artRect.width / 2 - canvasRect.left) / canvasRect.width;
-      place.y = 1 - (cy - canvasRect.top) / canvasRect.height;
-    }
-    place.x = Math.min(0.92, Math.max(0.08, place.x));
-    place.y = Math.min(0.86, Math.max(0.14, place.y));
+    // The light sits directly behind the emblem, so the plaque reads as back-lit
+    // and the gold ring frames it. Nothing floats loose in the hero.
+    const img = art.querySelector("img") || art;
+    const r = img.getBoundingClientRect();
+    const scale = Math.min(1.6, Math.max(0.3, (r.width * 0.76) / (0.46 * canvasRect.height)));
+    place.x = (r.left + r.width / 2 - canvasRect.left) / canvasRect.width;
+    place.y = 1 - (r.top + r.height / 2 - canvasRect.top) / canvasRect.height;
     place.scale = scale;
   }
 
