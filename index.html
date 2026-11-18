@@ -31,7 +31,7 @@
 <link rel="preload" href="/assets/fonts/f10.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" as="image" type="image/webp" href="/assets/img/home-keyhole.webp" imagesrcset="/assets/img/home-keyhole-480.webp 480w, /assets/img/home-keyhole.webp 960w" imagesizes="(max-width: 860px) 78vw, 460px" fetchpriority="high">
 <link rel="stylesheet" href="/assets/fonts/fonts.css?v=b7e2710a22" integrity="sha384-qKVxPdnwD+Li+3Ar+E51vGWBo7RTDN0mrmSzd9RDrRIM9FEdz81FLAuw76THwa/L">
-<link rel="stylesheet" href="/assets/css/style.css?v=29931dad06" integrity="sha384-y1vU6OFwacD5RAxORxDAkySKkDJGOZM7OyiJziPMdsF/K5QxoaNpLA+lfxbHD7cX">
+<link rel="stylesheet" href="/assets/css/style.css?v=ba8a32c7fc" integrity="sha384-8bzOckAoZcAMV0JW1Nb3Om1OlRDCDx5p52WPJqS9vJjL7qXbX7/tW0vE2YRR8wcp">
 <script src="/assets/js/js-flag.js?v=a10dbeff71" integrity="sha384-lD6oIhJ2fzyH7cn+QBLyHoZL2n7DC3nglmnKhx93wy6w0YYb8fJpPWF8M8F2ck5L"></script>
 <script type="application/ld+json">
 {
@@ -77,11 +77,12 @@
         <li><a href="#fantasy">The Fantasy</a></li>
         <li><a href="#family">Family Area</a></li>
         <li><a href="#prices">Price Guide</a></li>
-        <li><a href="#help">Visit / Help / Contact</a></li>
-        <li><a href="/private/">Private Sector</a></li>
-        <li><a class="nav-cta" href="#family">Explore The Family Side</a></li>
+        <li><a href="#help">Help Out</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="/private/">Private Sector 21+</a></li>
       </ul>
     </nav>
+    <a class="nav-dime" href="https://givebutter.com/untitled-campaign-brpbau" rel="noopener noreferrer"><img class="coin" src="/assets/img/dime-coin.svg" alt="" width="26" height="26">Drop a Dime</a>
   </div>
 </header>
 
@@ -100,12 +101,27 @@
         <a class="btn btn-line btn-big" href="#fantasy">About The Fantasy</a>
         <a class="btn btn-quiet btn-big" href="/private/">Private Area - 21+</a>
       </div>
+      <p class="hero-dime"><a class="dime-link" href="https://givebutter.com/untitled-campaign-brpbau" rel="noopener noreferrer"><img class="coin" src="/assets/img/dime-coin.svg" alt="" width="34" height="34">Drop a Dime - $1 and up</a></p>
     </div>
     <figure class="hero-art frame">
       <img src="/assets/img/home-keyhole.webp" srcset="/assets/img/home-keyhole-480.webp 480w, /assets/img/home-keyhole.webp 960w" sizes="(max-width: 860px) 78vw, 460px" alt="Art Deco gold keyhole emblem of The Insanity Center on black" width="960" height="960" fetchpriority="high">
       <figcaption>Your Imagination... Our Reality.</figcaption>
     </figure>
   </section>
+
+  <!-- ================= START HERE (one-tap index) ================= -->
+  <nav class="start-row" aria-label="Start here">
+    <div class="wrap">
+    <p class="kicker">Start here</p>
+    <ul class="start-grid">
+      <li><a class="start-card" href="#family"><span class="label">Family Area</span><span class="sub">Picnics, carnivals, and community events</span></a></li>
+      <li><a class="start-card" href="#prices"><span class="label">Price Guide</span><span class="sub">Suggested introductory rates</span></a></li>
+      <li><a class="start-card" href="#help"><span class="label">Help Out</span><span class="sub">Volunteer, donate prizes, be a vendor, drop a dime</span></a></li>
+      <li><a class="start-card" href="#contact"><span class="label">Contact</span><span class="sub">Email, Give Butter, Nextdoor</span></a></li>
+      <li><a class="start-card start-card-quiet" href="/private/"><span class="label">Private Sector</span><span class="sub">Adults only, 21+</span></a></li>
+    </ul>
+    </div>
+  </nav>
 
   <!-- ================= WHAT I'M BUILDING ================= -->
   <section class="section section-alt" id="building">
@@ -262,9 +278,20 @@ _The Insanity Center - Carbondale, PA_
         <span class="age-chip">18+ to Book</span>
       </div>
 
+      <nav class="jump-row reveal" aria-label="Price guide categories">
+        <span class="age-key">Jump to:</span>
+        <a href="#price-public">Public Events</a>
+        <a href="#price-learning">Learning &amp; Building</a>
+        <a href="#price-nature">Nature &amp; Agriculture</a>
+        <a href="#price-wellness">Wellness &amp; Recreation</a>
+        <a href="#price-creative">Creative &amp; Media</a>
+        <a href="#price-housing">Housing &amp; Living</a>
+        <a href="#price-support">Support &amp; Services</a>
+      </nav>
+
       <div class="price-grid">
 
-        <div class="price-block reveal">
+        <div class="price-block reveal" id="price-public">
           <span class="tag">Public Events &amp; Community</span>
           <h3>Good People. Good Times.</h3>
           <span class="age-chip">All Ages &bull; Under 18 With an Adult</span>
@@ -284,7 +311,7 @@ _The Insanity Center - Carbondale, PA_
           </ul>
         </div>
 
-        <div class="price-block reveal">
+        <div class="price-block reveal" id="price-learning">
           <span class="tag">Learning &amp; Building</span>
           <h3>Skills. Ideas. Real World Tools.</h3>
           <span class="age-chip">All Ages &bull; 13&ndash;17 With Guardian &bull; Hot Work 18+</span>
@@ -311,7 +338,7 @@ _The Insanity Center - Carbondale, PA_
           </ul>
         </div>
 
-        <div class="price-block reveal">
+        <div class="price-block reveal" id="price-nature">
           <span class="tag">Nature &amp; Agriculture</span>
           <h3>Get Back to What Feels Real</h3>
           <span class="age-chip">All Ages &bull; Under 18 With an Adult</span>
@@ -333,7 +360,7 @@ _The Insanity Center - Carbondale, PA_
           <p class="price-note">Animal activities, fishing, and anything agricultural depend on the facilities, permits, animal welfare arrangements, and the season doing its thing.</p>
         </div>
 
-        <div class="price-block reveal">
+        <div class="price-block reveal" id="price-wellness">
           <span class="tag">Wellness &amp; Recreation</span>
           <h3>Mind. Body. Freedom.</h3>
           <span class="age-chip">All Ages Family Hours &bull; 18+ to Book</span>
@@ -355,7 +382,7 @@ _The Insanity Center - Carbondale, PA_
           </ul>
         </div>
 
-        <div class="price-block reveal">
+        <div class="price-block reveal" id="price-creative">
           <span class="tag">Creative &amp; Media</span>
           <h3>Express. Create. Share.</h3>
           <span class="age-chip">All Ages Standard Studio</span>
@@ -381,7 +408,7 @@ _The Insanity Center - Carbondale, PA_
           <p class="price-note">Materials, equipment, printing, and other production expenses get charged separately. You'll know before it hits the bill.</p>
         </div>
 
-        <div class="price-block reveal">
+        <div class="price-block reveal" id="price-housing">
           <span class="tag">Housing &amp; Living</span>
           <h3>A Place to Call Home</h3>
           <span class="age-chip">All Ages Stays &bull; 18+ to Reserve</span>
@@ -401,7 +428,7 @@ _The Insanity Center - Carbondale, PA_
           <p class="price-note">Real rates depend on the property itself, utilities, insurance, occupancy rules, and what the township allows.</p>
         </div>
 
-        <div class="price-block reveal">
+        <div class="price-block reveal" id="price-support">
           <span class="tag">Support &amp; Services</span>
           <h3>Because You Deserve Support</h3>
           <span class="age-chip">18+ to Contract &bull; Minors With Parent</span>
@@ -487,19 +514,23 @@ _The Insanity Center - Carbondale, PA_
         <a class="btn btn-gold btn-big" href="mailto:theinsanitycenter@gmail.com?subject=Volunteer%20%2F%20Vendor%20%2F%20Prizes">Email the Center</a>
       </div>
 
-      <div class="connect-grid reveal mt-lg">
-        <a class="connect-card" href="mailto:theinsanitycenter@gmail.com">
-          <span class="label">Insanity Center email</span>
-          <span class="sub">theinsanitycenter@gmail.com - applications, ideas, suggestions</span>
-        </a>
-        <a class="connect-card" href="https://givebutter.com/untitled-campaign-brpbau" rel="noopener noreferrer">
-          <span class="label">Give Butter page</span>
-          <span class="sub">The official fundraiser - every dime counts</span>
-        </a>
-        <a class="connect-card" href="https://nextdoor.com/profile/01bpfDNLNKP28mmhP" rel="noopener noreferrer">
-          <span class="label">Nextdoor</span>
-          <span class="sub">Follow what's going on in the neighborhood</span>
-        </a>
+      <div id="contact" class="mt-lg">
+        <h3 class="h-sub reveal">Contact</h3>
+        <div class="connect-grid reveal">
+          <a class="connect-card" href="mailto:theinsanitycenter@gmail.com">
+            <span class="label">Insanity Center email</span>
+            <span class="sub">theinsanitycenter@gmail.com - applications, ideas, suggestions</span>
+          </a>
+          <a class="connect-card connect-dime" href="https://givebutter.com/untitled-campaign-brpbau" rel="noopener noreferrer">
+            <img class="coin" src="/assets/img/dime-coin.svg" alt="" width="40" height="40">
+            <span class="label">Give Butter page</span>
+            <span class="sub">The official fundraiser - every dime counts</span>
+          </a>
+          <a class="connect-card" href="https://nextdoor.com/profile/01bpfDNLNKP28mmhP" rel="noopener noreferrer">
+            <span class="label">Nextdoor</span>
+            <span class="sub">Follow what's going on in the neighborhood</span>
+          </a>
+        </div>
       </div>
 
       <div class="ornament" aria-hidden="true"><svg viewBox="0 0 240 28" width="240" height="28" focusable="false"><path d="M0 14h92M148 14h92" stroke="currentColor" stroke-width="1"/><path d="M78 14l6-5 6 5-6 5zM150 14l6-5 6 5-6 5z" fill="currentColor"/><circle cx="120" cy="10" r="6.5" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M116.6 15.2 114 26h12l-2.6-10.8" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg></div>
@@ -511,6 +542,9 @@ _The Insanity Center - Carbondale, PA_
         <p class="dime-title">The Insanity Center Donation Fund</p>
         <p class="amount">$0.10</p>
         <p class="dime-sub">The dime is the idea. The button starts at a buck - after that, you put in whatever you want.</p>
+        <div class="hero-actions center dime-top">
+          <a class="btn btn-gold btn-big" href="https://givebutter.com/untitled-campaign-brpbau" rel="noopener noreferrer">Drop a Dime - $1 and up</a>
+        </div>
         <p>This is a public fund to open a private, consent-first, 21+ social club (with family friendly events and common areas) in Carbondale / Scranton, PA. The Insanity Center is coming to NEPA - if you want it here.</p>
         <p>This is an open donation fund to help open the center. This is not members-only. This is not an investment.</p>
         <h3>Why a dime?</h3>
@@ -523,7 +557,7 @@ _The Insanity Center - Carbondale, PA_
         <p><strong>This is not equity, not profit-share, not pay-for-play.</strong> This is community funding to get the doors open debt-free so members aren't carrying the burden.</p>
         <p>I'm not asking you to fund a mansion. I'm asking for a dollar toward Phase Zero - the search. If you have a space, or you've wanted to build this too - message me. If you can't help with space, $1 toward the search means everything.</p>
         <div class="hero-actions center">
-          <a class="btn btn-gold" href="https://givebutter.com/untitled-campaign-brpbau" rel="noopener noreferrer">Drop a Dime - $1 and up</a>
+          <a class="btn btn-gold btn-big" href="https://givebutter.com/untitled-campaign-brpbau" rel="noopener noreferrer">Drop a Dime - $1 and up</a>
         </div>
         <p class="dime-thanks">Thank you for your time and your desire to have this here. - Joy</p>
       </div>
@@ -547,8 +581,35 @@ _The Insanity Center - Carbondale, PA_
 
 </main>
 
+<aside class="dime-band" aria-labelledby="dime-band-title">
+  <div class="wrap">
+    <div class="dime-band-inner frame">
+      <img class="coin coin-lg" src="/assets/img/dime-coin.svg" alt="" width="112" height="112" loading="lazy" decoding="async">
+      <div class="dime-band-copy">
+        <h2 class="dime-band-title" id="dime-band-title">Drop a Dime</h2>
+        <p class="dime-band-line">Your dime is your signature. Your extra is what builds it.</p>
+        <p class="dime-band-facts">This is an open donation fund to help open the center. This is not members-only. This is not an investment. All funds go directly to opening costs.</p>
+      </div>
+      <div class="dime-band-actions">
+        <a class="btn btn-gold btn-big" href="https://givebutter.com/untitled-campaign-brpbau" rel="noopener noreferrer">Drop a Dime - $1 and up</a>
+        <a class="dime-why" href="/#dime">Why a dime?</a>
+      </div>
+    </div>
+  </div>
+</aside>
+
 <footer class="footer">
   <div class="wrap">
+    <nav class="footer-nav" aria-label="Footer">
+      <ul>
+        <li><a href="/#family">Family Area</a></li>
+        <li><a href="/#prices">Price Guide</a></li>
+        <li><a href="/#help">Help Out</a></li>
+        <li><a href="/#contact">Contact</a></li>
+        <li><a href="https://givebutter.com/untitled-campaign-brpbau" rel="noopener noreferrer">Drop a Dime</a></li>
+        <li><a href="#top">Back to top</a></li>
+      </ul>
+    </nav>
     <img class="seal" src="/assets/apple-touch-icon-180.png" alt="" loading="lazy" decoding="async" width="180" height="180">
     <p><strong class="gold">The Insanity Center</strong><br>Carbondale, PA</p>
     <p>location with free Family friendly events, areas, and activities.</p>
@@ -557,7 +618,7 @@ _The Insanity Center - Carbondale, PA_
   </div>
 </footer>
 
-<script src="/assets/js/main.js?v=c988e2b360" defer integrity="sha384-KFNJ4+l5boYDFMpI+nB8HNgbjscuszwo36FV06W8jNvi+MBBNpJBgZDQEfuhylXZ"></script>
+<script src="/assets/js/main.js?v=67ceb43750" defer integrity="sha384-5Y7FRRxta6pqW1fzTTjXp4IBzd2CHFO+cErWfNIw+jNUbUuGhH/JHCs48PM9zSwQ"></script>
 <script src="/assets/js/hero-field.js?v=f42a5c26c4" defer integrity="sha384-39OCyVtiSuvLnM9NC2nT8sTxyv2lAnyWyeIPS6b2Li3q59zgC5oFQkCyg7yC2INK"></script>
 </body>
 </html>

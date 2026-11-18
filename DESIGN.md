@@ -33,9 +33,18 @@
   - `.btn-big` - 56px-tall phone-friendly buttons for the main actions.
   - `.wonder-list` - the short word list in What Fantasy Means To Me.
   - Gate card - the centred 21+ confirmation card on `private/index.html`.
+  - Donate + wayfinding (2026-11): one motif, the keyhole dime coin (`assets/img/dime-coin.svg`).
+    - `.nav-dime` - gold "Drop a Dime" pill in every page header, visible down to 360px.
+    - `.hero-dime` - secondary dime link under the home hero doors.
+    - `.start-row` - "Start here" row of five big links under the home hero.
+    - `.jump-row` - category jump links above the price guide.
+    - `.dime-band` - the same donation band before the footer on all four pages.
+    - `.footer-nav` - the same footer links on all four pages.
+    - The menu marks the section in view with `aria-current="location"` (main.js).
 - Rules:
   - The family page shows no previews, images, or excerpts of Private Sector content.
-  - The Private Sector link appears exactly twice on the family page: once in the top nav
-    and once in the footer.
+  - Private Sector links on the family page are plain text only (no images or excerpts): top nav,
+    hero door, Start here row, and footer.
+  - Every donate link uses the same Givebutter URL, `rel="noopener noreferrer"`, same tab.
   - Home hero image is `assets/img/home-keyhole.webp` (photo-01 with the "21+" line covered).
   - Copy is Joy's verbatim wording.

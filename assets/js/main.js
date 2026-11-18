@@ -45,6 +45,35 @@
     revealEls.forEach(function (el) { el.classList.add("in"); });
   }
 
+  /* ---- current section in the menu (aria-current="location") ---- */
+  var spyLinks = [];
+  document.querySelectorAll('.nav-links a[href^="#"]').forEach(function (a) {
+    var target = document.getElementById(a.getAttribute("href").slice(1));
+    if (target) spyLinks.push({ link: a, target: target, seen: false });
+  });
+  if ("IntersectionObserver" in window && spyLinks.length) {
+    var mark = function () {
+      var current = null;
+      /* menu order follows page order, so the last section crossing the band
+         wins (a nested block like #contact beats its parent #help) */
+      spyLinks.forEach(function (s) { if (s.seen) current = s; });
+      spyLinks.forEach(function (s) {
+        if (s === current) s.link.setAttribute("aria-current", "location");
+        else s.link.removeAttribute("aria-current");
+      });
+    };
+    var spy = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          spyLinks.forEach(function (s) { if (s.target === entry.target) s.seen = entry.isIntersecting; });
+        });
+        mark();
+      },
+      { rootMargin: "-35% 0px -60% 0px", threshold: 0 }
+    );
+    spyLinks.forEach(function (s) { spy.observe(s.target); });
+  }
+
   /* ---- copy-to-clipboard ---- */
   function copyText(text, btn) {
     function done() {
