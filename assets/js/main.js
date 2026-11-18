@@ -8,14 +8,20 @@
   var toggle = document.querySelector(".nav-toggle");
   var menu = document.getElementById("nav-menu");
   if (toggle && menu) {
-    toggle.addEventListener("click", function () {
-      var open = menu.classList.toggle("open");
+    var setOpen = function (open) {
+      menu.classList.toggle("open", open);
       toggle.setAttribute("aria-expanded", open ? "true" : "false");
+    };
+    toggle.addEventListener("click", function () {
+      setOpen(!menu.classList.contains("open"));
     });
     menu.addEventListener("click", function (e) {
-      if (e.target.tagName === "A") {
-        menu.classList.remove("open");
-        toggle.setAttribute("aria-expanded", "false");
+      if (e.target.tagName === "A") setOpen(false);
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && menu.classList.contains("open")) {
+        setOpen(false);
+        toggle.focus();
       }
     });
   }
@@ -59,8 +65,7 @@
     function fallback() {
       var ta = document.createElement("textarea");
       ta.value = text;
-      ta.style.position = "fixed";
-      ta.style.opacity = "0";
+      ta.className = "copy-scratch";
       document.body.appendChild(ta);
       ta.select();
       try { document.execCommand("copy"); done(); } catch (e) { /* noop */ }

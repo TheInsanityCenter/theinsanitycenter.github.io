@@ -311,3 +311,192 @@ em { font-style: italic; }
 a:focus-visible, button:focus-visible, summary:focus-visible {
   outline: 2px solid var(--gold-bright); outline-offset: 3px; border-radius: 4px;
 }
+
+/* =====================================================================
+   2026 revamp: skip link, utilities, frames, home doors, gate, a11y
+   ===================================================================== */
+
+/* ---------- skip link ---------- */
+.skip-link {
+  position: absolute; left: -9999px; top: 0; z-index: 100;
+  background: var(--gold); color: #0c130e; font-weight: 600; text-decoration: none;
+  border-radius: 999px; padding: 0.7rem 1.3rem; min-height: 44px;
+}
+.skip-link:focus, .skip-link:focus-visible {
+  position: fixed; left: 1rem; top: 1rem; color: #0c130e;
+  outline: 2px solid var(--gold-bright); outline-offset: 3px;
+}
+
+/* ---------- spacing + text utilities ---------- */
+.mt-1 { margin-top: 1.4rem; }
+.mt-2 { margin-top: 2rem; }
+.mt-lg { margin-top: clamp(2rem, 5vw, 3.5rem); }
+.mt-xl { margin-top: clamp(2.5rem, 6vw, 4rem); }
+.mt-img { margin-top: 1rem; }
+.fine-print { color: var(--ink-faint); font-size: 0.9rem; overflow-wrap: anywhere; }
+.gold { color: var(--gold); }
+.center { justify-content: center; }
+.center-text { text-align: center; }
+.center-p { margin: 0 auto 1.5rem; }
+.copy-scratch { position: fixed; top: 0; left: 0; opacity: 0; pointer-events: none; }
+
+/* ---------- dime card ---------- */
+.dime-title { margin-bottom: 0; }
+.dime-sub { font-size: 0.9rem; color: var(--ink-muted); margin: -0.4rem auto 0.8rem; }
+.dime-thanks { margin-top: 1.2rem; font-size: 0.9rem; color: var(--ink-muted); }
+
+/* ---------- headings ---------- */
+.h-sub { font-size: clamp(1.5rem, 3.2vw, 2rem); }
+.card-title {
+  font-family: var(--font-display); font-size: 1.35rem; font-weight: 600;
+  color: var(--gold-bright); margin-top: 0.2rem;
+}
+.doc-body h3 {
+  color: var(--gold); font-family: var(--font-body); font-size: 0.95rem; font-weight: 600;
+  letter-spacing: 0.08em; text-transform: uppercase; line-height: 1.3; margin: 1.4rem 0 0.5rem;
+}
+
+/* ---------- home hero ---------- */
+.hero-what {
+  font-size: 1.2rem; color: var(--ink); max-width: 48ch; line-height: 1.55;
+  text-shadow: 0 0 3px rgba(7, 11, 8, 0.95), 0 1px 6px rgba(7, 11, 8, 0.95), 0 2px 28px rgba(7, 11, 8, 0.9);
+}
+.hero-tagline { text-shadow: 0 0 3px rgba(7, 11, 8, 0.95), 0 2px 28px rgba(7, 11, 8, 0.9); }
+.hero-doors { display: flex; flex-wrap: wrap; gap: 0.9rem; }
+.btn {
+  min-height: 44px; display: inline-flex; align-items: center; justify-content: center;
+}
+.btn-big {
+  min-height: 56px; padding: 0.95rem 1.9rem; font-size: 1.05rem;
+  white-space: normal; text-align: center; line-height: 1.3;
+}
+.btn-quiet { background: transparent; color: var(--ink-muted); border: 1px solid var(--green-line); }
+.btn-quiet:hover { color: var(--gold-bright); border-color: var(--gold); }
+@media (max-width: 600px) {
+  .hero-doors { flex-direction: column; align-items: stretch; }
+  .hero-doors .btn { width: 100%; }
+  .btn { white-space: normal; text-align: center; }
+}
+
+/* private hero: content, not a full screen */
+.hero-compact { min-height: auto; padding-top: clamp(2rem, 5vw, 3.5rem); padding-bottom: clamp(2rem, 5vw, 3rem); }
+
+/* ---------- frame: double gold rule + corner blocks ---------- */
+.frame {
+  position: relative; padding: 14px;
+  border: 1px solid var(--gold);
+  background: rgba(7, 11, 8, 0.4);
+  border-radius: 3px;
+}
+figure.frame { margin: 0; }
+.frame::after {
+  content: ""; position: absolute; inset: 5px; pointer-events: none;
+  border: 1px solid var(--gold-soft); border-radius: 2px;
+}
+.frame::before {
+  content: ""; position: absolute; inset: -4px; pointer-events: none;
+  background:
+    linear-gradient(var(--gold), var(--gold)) top left / 9px 9px no-repeat,
+    linear-gradient(var(--gold), var(--gold)) top right / 9px 9px no-repeat,
+    linear-gradient(var(--gold), var(--gold)) bottom left / 9px 9px no-repeat,
+    linear-gradient(var(--gold), var(--gold)) bottom right / 9px 9px no-repeat;
+}
+.frame img { position: relative; z-index: 1; }
+.frame figcaption { position: relative; z-index: 1; margin-bottom: 0.2rem; }
+.frame-panel {
+  background: var(--bg-2); padding: clamp(1.6rem, 5vw, 3.2rem); text-align: center;
+}
+.frame-panel > * { position: relative; z-index: 1; }
+.frame-panel p { margin-left: auto; margin-right: auto; }
+.frame-panel .hero-actions { justify-content: center; }
+
+/* candlelight: warm, slow, low glow */
+.frame-panel, .hero-art.frame {
+  box-shadow: 0 0 70px rgba(201, 164, 92, 0.07), 0 0 0 1px rgba(201, 164, 92, 0.04);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .frame-panel, .hero-art.frame { animation: candle 9s ease-in-out infinite alternate; }
+}
+@keyframes candle {
+  0%   { box-shadow: 0 0 60px rgba(201, 164, 92, 0.06), 0 0 0 1px rgba(201, 164, 92, 0.04); }
+  45%  { box-shadow: 0 0 78px rgba(201, 164, 92, 0.10), 0 0 0 1px rgba(201, 164, 92, 0.05); }
+  60%  { box-shadow: 0 0 66px rgba(201, 164, 92, 0.075), 0 0 0 1px rgba(201, 164, 92, 0.04); }
+  100% { box-shadow: 0 0 84px rgba(201, 164, 92, 0.11), 0 0 0 1px rgba(201, 164, 92, 0.05); }
+}
+
+/* ---------- ornament divider ---------- */
+.ornament { color: var(--gold); margin: clamp(2rem, 5vw, 3.5rem) auto; max-width: 240px; }
+.ornament svg { display: block; width: 100%; height: auto; }
+
+/* ---------- fantasy ---------- */
+.fantasy-lead {
+  font-family: var(--font-display); font-style: italic; font-weight: 500;
+  font-size: clamp(1.3rem, 2.8vw, 1.75rem); line-height: 1.35; color: var(--gold-bright);
+  max-width: 40ch; margin: 0 auto 1.2rem;
+}
+.wonder-list {
+  list-style: none; margin: 1.6rem auto 0; padding: 0;
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 0.7rem;
+}
+.wonder-list li {
+  font-family: var(--font-display); font-size: 1.2rem; color: var(--gold-bright);
+  border: 1px solid var(--gold-soft); border-radius: 999px; padding: 0.3rem 1.05rem;
+}
+
+/* ---------- 18+ gate ---------- */
+.gate-body { min-height: 100dvh; }
+.gate {
+  min-height: 100dvh; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: 1.2rem;
+}
+.gate-card { max-width: 34rem; width: 100%; }
+.gate-text { font-size: 1.15rem; margin: 0 auto 0.4rem; }
+.gate-actions { justify-content: center; }
+@media (max-width: 600px) {
+  .gate-actions { flex-direction: column; align-items: stretch; }
+}
+
+/* ---------- footer ---------- */
+.footer-private { font-size: 0.85rem; margin-top: 1.4rem; }
+.footer-private a {
+  color: var(--ink-faint); text-decoration: underline; text-decoration-color: currentColor;
+  display: inline-flex; align-items: center; min-height: 44px;
+}
+.footer-private a:hover { color: var(--gold-bright); }
+
+/* ---------- WCAG 2.2 target size (44px) ---------- */
+.nav-toggle { min-width: 44px; min-height: 44px; padding: 0 0.65rem; }
+.nav-links a { display: inline-flex; align-items: center; min-height: 44px; min-width: 44px; }
+.nav-brand { display: inline-flex; align-items: center; min-height: 44px; }
+.nav-links a.nav-cta, .nav-links li:last-child a.nav-cta { border-bottom: 1px solid var(--gold); }
+.copy-btn { min-height: 44px; }
+.doc > summary { min-height: 44px; }
+.connect-card { min-height: 44px; }
+@media (max-width: 1180px) {
+  .nav-links.open { max-height: calc(100dvh - 66px); overflow-y: auto; }
+  .nav-links a { display: flex; }
+  .nav-cta { display: inline-flex; justify-content: center; }
+}
+
+/* focus ring covers every control */
+.btn:focus-visible, .copy-btn:focus-visible, .nav-toggle:focus-visible,
+.connect-card:focus-visible, .skip-link:focus-visible {
+  outline: 2px solid var(--gold-bright); outline-offset: 3px;
+}
+
+/* ---------- phones: air between sections, short lines ---------- */
+@media (max-width: 860px) {
+  .section { padding: clamp(4.5rem, 14vw, 5.5rem) 0; }
+  p { max-width: 60ch; }
+  .hero-art.frame { order: -1; width: min(82%, 340px); margin: 0 auto 6rem; }
+}
+.statement + p { margin-top: 1.2rem; }
+@media (max-width: 860px) {
+  .hero-compact .hero-art.frame { margin-bottom: 1.5rem; }
+}
+
+/* Desktop home hero: reserve room under the poster so the keyhole light never sits on the copy. */
+@media (min-width: 861px) {
+  .hero-art.frame { margin-bottom: 8rem; }
+  .hero-compact .hero-art.frame { margin-bottom: 0; }
+}

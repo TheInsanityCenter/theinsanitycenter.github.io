@@ -152,8 +152,10 @@ function boot(canvas) {
   function layout() {
     const canvasRect = canvas.getBoundingClientRect();
     const art = hero.querySelector(".hero-art");
-    const wide = window.innerWidth > 860;
     if (!art || canvasRect.width < 2 || canvasRect.height < 2) return;
+    // When the art reserves a gap below itself, the light sits in that gap (clear of the copy).
+    const artGap = parseFloat(getComputedStyle(art).marginBottom) || 0;
+    const wide = window.innerWidth > 860 && artGap === 0;
 
     const artRect = art.getBoundingClientRect();
     let scale = wide ? 0.32 : 0.26;
@@ -176,7 +178,7 @@ function boot(canvas) {
         radius = archRadiusPx();
       }
       const cy = artRect.bottom + (gap > 0 ? gap * 0.48 : radius * 0.85);
-      place.x = 0.5;
+      place.x = (artRect.left + artRect.width / 2 - canvasRect.left) / canvasRect.width;
       place.y = 1 - (cy - canvasRect.top) / canvasRect.height;
     }
     place.x = Math.min(0.92, Math.max(0.08, place.x));
