@@ -669,3 +669,23 @@ figure.frame { margin: 0; }
 
 /* gate page now sits under the header */
 .nav ~ .gate { min-height: calc(100dvh - 66px); }
+
+/* ---------- pirate-ship easter egg (home, bottom) ---------- */
+.doc.egg { background: none; border: 0; overflow: visible; }
+.doc.egg > summary { justify-content: center; width: max-content; margin: 0 auto; padding: 0.5rem; border-radius: 50%; }
+.doc.egg > summary:hover { background: none; }
+.doc.egg > summary img {
+  display: block; width: 96px; height: 96px; border-radius: 50%;
+  box-shadow: 0 0 0 2px var(--green-line);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+.doc.egg > summary:hover img, .doc.egg[open] > summary img { box-shadow: 0 0 0 2px var(--gold), 0 0 22px rgba(201, 164, 92, 0.35); }
+.doc.egg > summary:focus-visible { outline: none; }
+.doc.egg > summary:focus-visible img { box-shadow: 0 0 0 2px var(--bg-0), 0 0 0 4px var(--gold-bright); }
+@media (prefers-reduced-motion: no-preference) {
+  .doc.egg > summary:hover img { transform: rotate(-4deg); }
+}
+.doc.egg .doc-body {
+  background: var(--bg-2); border: 1px solid var(--green-line); border-radius: var(--radius-card);
+  margin-top: 0.8rem; padding-top: 1rem;
+}
